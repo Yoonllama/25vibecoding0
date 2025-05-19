@@ -83,6 +83,6 @@ if selected_mbti:
 
     st.subheader(f"🧚‍♀️ 어울리는 하츄핑 친구: **{data['character']}**")
     
-    # 이미지 경로 (images 폴더에 MBTI.png 파일을 넣어주세요)
+    # 이미지 출력 부분
     image_path = f"images/{selected_mbti}.png"
-    st.image(image_path, caption=data["character"], use_column_width=True)
+    st.image(image_path, caption=data["character"], use_container_width=True)
