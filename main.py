@@ -1,56 +1,39 @@
 import streamlit as st
 
-# 🎨 웹페이지 기본 설정
-st.set_page_config(page_title="🌟MBTI 진로 추천기🌈", page_icon="🧭", layout="centered")
-
-# 🌈 타이틀과 설명
-st.markdown("""
-# 💼✨ MBTI 진로 추천기 🎯  
-당신의 **MBTI**를 선택하면,  
-🌟성격에 딱 맞는 **꿈의 직업**을 추천해드릴게요!  
-
-> 🎓 진로 교육에 딱! 이모지 가득 귀여운 스타일 웹앱 💖
-""")
-
-# 🧬 MBTI 리스트
-mbti_list = [
-    "ISTJ 🧾", "ISFJ 🧸", "INFJ 🔮", "INTJ 🧠",
-    "ISTP 🛠️", "ISFP 🎨", "INFP 📖", "INTP 📚",
-    "ESTP 🏍️", "ESFP 🎤", "ENFP 🌈", "ENTP 🚀",
-    "ESTJ 🏢", "ESFJ 🤝", "ENFJ 🎯", "ENTJ 🦁"
-]
-
-mbti = st.selectbox("🧬 당신의 MBTI를 선택해주세요!", mbti_list)
-
-# 💼 직업 추천 데이터
-job_dict = {
-    "ISTJ 🧾": ["회계사 💼", "공무원 🏛️", "데이터 분석가 📊"],
-    "ISFJ 🧸": ["간호사 🏥", "교사 👩‍🏫", "사회복지사 🤝"],
-    "INFJ 🔮": ["심리상담가 🧘", "작가 ✍️", "인권운동가 🌍"],
-    "INTJ 🧠": ["전략기획가 📈", "과학자 🔬", "AI 엔지니어 🤖"],
-    "ISTP 🛠️": ["엔지니어 ⚙️", "파일럿 ✈️", "정비사 🔧"],
-    "ISFP 🎨": ["디자이너 🎨", "플로리스트 💐", "포토그래퍼 📸"],
-    "INFP 📖": ["작가 ✍️", "번역가 🌐", "예술가 🎭"],
-    "INTP 📚": ["개발자 💻", "이론 물리학자 ⚛️", "교수 👨‍🏫"],
-    "ESTP 🏍️": ["기업가 💼", "세일즈 매니저 📢", "소방관 🚒"],
-    "ESFP 🎤": ["연예인 🎬", "이벤트 플래너 🎉", "운동선수 🏅"],
-    "ENFP 🌈": ["마케팅 전문가 📢", "작가 ✍️", "창업가 🚀"],
-    "ENTP 🚀": ["기획자 🗂️", "벤처 CEO 👨‍💼", "방송인 🎙️"],
-    "ESTJ 🏢": ["경영자 📊", "군인 🪖", "행정관리자 📋"],
-    "ESFJ 🤝": ["교사 👩‍🏫", "간호사 🏥", "HR 매니저 👥"],
-    "ENFJ 🎯": ["리더십 코치 🧑‍🏫", "사회 운동가 🕊️", "홍보 담당자 📣"],
-    "ENTJ 🦁": ["CEO 🏆", "전략가 📈", "투자 전문가 💸"]
+# MBTI별 쉬운 설명과 캐릭터 매칭 정보
+mbti_data = {
+    "ENFP": {
+        "description": "새로운 것을 좋아하고 친구들과 노는 걸 정말 좋아해요. 항상 웃으며 재미있는 아이디어가 많아요!",
+        "character": "하츄핑 (신나는 리더)"
+    },
+    "INTJ": {
+        "description": "조용하지만 머리가 똑똑하고 계획을 잘 세워요. 혼자 생각하는 걸 좋아하고 문제를 해결하는 걸 잘해요!",
+        "character": "시리핑 (생각쟁이 마법사)"
+    },
+    "ISFJ": {
+        "description": "친구들을 잘 도와주고 조용하지만 따뜻한 마음을 가지고 있어요. 약속을 잘 지키는 착한 친구예요!",
+        "character": "마리핑 (친절 요정)"
+    },
+    "ESTP": {
+        "description": "활동적인 걸 좋아하고 친구들과 놀면서 인기가 많아요. 용감하고 도전을 좋아해요!",
+        "character": "파티핑 (모험가 친구)"
+    },
+    # 더 많은 MBTI를 추가할 수 있어요!
 }
 
-# 💡 추천 직업 출력
-if mbti:
-    st.markdown(f"""
-    ## 🎉 당신에게 어울리는 직업은?
-    """)
-    for job in job_dict.get(mbti, []):
-        st.markdown(f"- {job}")
-    st.balloons()
+# 제목
+st.title("MBTI로 알아보는 나와 어울리는 하츄핑 친구는?")
 
-# 🖼️ 하단 푸터
-st.markdown("---")
-st.markdown("Made with ❤️ by [GPT온라인](https://gptonline.ai/ko/) – 한국형 AI와 함께하는 진로 탐색")
+# 사용자 입력 (MBTI 선택)
+selected_mbti = st.selectbox("당신의 MBTI를 골라보세요!", list(mbti_data.keys()))
+
+# 결과 보여주기
+if selected_mbti:
+    data = mbti_data[selected_mbti]
+    st.subheader(f"🧠 {selected_mbti} 성격은 이런 모습이에요!")
+    st.write(data["description"])
+    
+    st.subheader(f"🧚‍♀️ 어울리는 하츄핑 친구: **{data['character']}**")
+    
+    image_path = f"images/{selected_mbti}.png"  # 이미지 폴더 경로 설정 필요
+    st.image(image_path, caption=data["character"], use_column_width=True)
